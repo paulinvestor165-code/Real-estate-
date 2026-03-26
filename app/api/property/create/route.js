@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import db from "@/lib/db";
+import connectDB from "@/lib/db";
 import Property from "@/models/Property";
 
 export async function POST(req) {
   try {
-    await db();
+    await connectDB();
 
     const body = await req.json();
 
