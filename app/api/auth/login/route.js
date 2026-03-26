@@ -1,12 +1,13 @@
 // app/api/auth/login/route.js
 
-import { connectDB } from "@/lib/db";
-import User from "@/models/User";
+import { connectDB } from "../../../lib/db";
+import User from "../../../models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   await connectDB();
+
   const { email, password } = await req.json();
 
   const user = await User.findOne({ email });
@@ -23,7 +24,7 @@ export async function POST(req) {
 
   const token = jwt.sign(
     { id: user._id, role: user.role },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET || "secret123",
     { expiresIn: "7d" }
   );
 
