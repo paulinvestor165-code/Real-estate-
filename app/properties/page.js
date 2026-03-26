@@ -1,6 +1,6 @@
 // app/properties/page.js
 
-import axios from "axios";
+import PropertyCard from "@/components/PropertyCard";
 
 export default async function Properties() {
   const res = await fetch("http://localhost:3000/api/property/all", {
@@ -10,15 +10,9 @@ export default async function Properties() {
   const data = await res.json();
 
   return (
-    <div>
-      <h1>All Properties</h1>
-
+    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
       {data.map((p) => (
-        <div key={p._id}>
-          <h3>{p.title}</h3>
-          <p>{p.location}</p>
-          <p>₦{p.price}</p>
-        </div>
+        <PropertyCard key={p._id} property={p} />
       ))}
     </div>
   );
