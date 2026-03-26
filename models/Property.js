@@ -1,17 +1,29 @@
-// models/Property.js
-
 import mongoose from "mongoose";
 
-const PropertySchema = new mongoose.Schema({
-  title: String,
-  price: Number,
-  location: String,
-  type: String,
-  images: [String],
-  description: String,
-  agent: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  featured: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
-});
+const PropertySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.models.Property || mongoose.model("Property", PropertySchema);
+export default mongoose.models.Property ||
+  mongoose.model("Property", PropertySchema);
