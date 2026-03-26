@@ -1,2 +1,10 @@
-import { connectDB } from "lib/db";
-import User from "models/User";
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "lib/*": ["lib/*"],
+      "models/*": ["models/*"]
+    }
+  },
+  "exclude": ["node_modules", ".next"]
+}
