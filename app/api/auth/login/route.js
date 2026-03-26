@@ -1,32 +1,29 @@
-// app/api/auth/login/route.js
-
-import { connectDB } from "../../../../lib/db";
-import User from "../../../../models/User";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
+import connectDB from "@/lib/db";
 
 export async function POST(req) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const { email, password } = await req.json();
+    const body = await req.json();
+    const { email, password } = body;
 
-  const user = await User.findOne({ email });
+    // TODO: Replace with real user check
+    if (email && password) {
+      return NextResponse.json({
+        success: true,
+        message: "Login successful",
+      });
+    }
 
-  if (!user) {
-    return Response.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json(
+      { success: false, message: "Invalid credentials" },
+      { status: 400 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-
-  if (!isMatch) {
-    return Response.json({ error: "Invalid credentials" }, { status: 401 });
-  }
-
-  const token = jwt.sign(
-    { id: user._id, role: user.role },
-    process.env.JWT_SECRET || "secret123",
-    { expiresIn: "7d" }
-  );
-
-  return Response.json({ message: "Login successful", token });
 }
