@@ -1,18 +1,20 @@
-// app/properties/page.js
-
 import PropertyCard from "@/components/PropertyCard";
 
-export default async function Properties() {
-  const res = await fetch("http://localhost:3000/api/property/all", {
+async function getProperties() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/property`, {
     cache: "no-store",
   });
 
-  const data = await res.json();
+  return res.json();
+}
+
+export default async function PropertiesPage() {
+  const { data } = await getProperties();
 
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      {data.map((p) => (
-        <PropertyCard key={p._id} property={p} />
+    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {data?.map((property) => (
+        <PropertyCard key={property._id} property={property} />
       ))}
     </div>
   );
