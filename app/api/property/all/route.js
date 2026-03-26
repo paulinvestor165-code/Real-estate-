@@ -1,7 +1,7 @@
 // app/api/property/all/route.js
 
-import { connectDB } from "../../../lib/db";
-import Property from "../../../models/Property";
+import { connectDB } from "../../../../lib/db";
+import Property from "../../../../models/Property";
 
 export async function GET() {
   await connectDB();
