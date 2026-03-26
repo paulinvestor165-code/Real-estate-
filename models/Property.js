@@ -2,25 +2,11 @@ import mongoose from "mongoose";
 
 const PropertySchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    location: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-    },
+    title: String,
+    price: Number,
+    location: String,
+    image: String,
+    description: String,
   },
   { timestamps: true }
 );
