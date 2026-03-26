@@ -1,7 +1,11 @@
 import PropertyCard from "@/components/PropertyCard";
 
 async function getProperties() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/property`, {
+  const base =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    "http://localhost:3000";
+
+  const res = await fetch(`${base}/api/property/all`, {
     cache: "no-store",
   });
 
